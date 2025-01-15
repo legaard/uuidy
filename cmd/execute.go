@@ -10,8 +10,6 @@ import (
 var (
 	cliVersion = "0.0.2"
 
-	groupUUID = "UUID"
-
 	defaultNamespace     = uuid.NamespaceDNS
 	defaultUUIDGenerator = uuid.NewV4
 )
@@ -28,17 +26,19 @@ func Execute() error {
 		v6      = V6Cmd()
 		v7      = V7Cmd()
 		parse   = ParseCmd()
+
+		uuidGroup = &cobra.Group{ID: "UUID_GROUP", Title: "UUIDs Commands"}
 	)
 
-	v1.GroupID = groupUUID
-	v3.GroupID = groupUUID
-	v4.GroupID = groupUUID
-	v5.GroupID = groupUUID
-	v6.GroupID = groupUUID
-	v7.GroupID = groupUUID
-	parse.GroupID = groupUUID
+	v1.GroupID = uuidGroup.ID
+	v3.GroupID = uuidGroup.ID
+	v4.GroupID = uuidGroup.ID
+	v5.GroupID = uuidGroup.ID
+	v6.GroupID = uuidGroup.ID
+	v7.GroupID = uuidGroup.ID
+	parse.GroupID = uuidGroup.ID
 
-	root.AddGroup(&cobra.Group{ID: groupUUID, Title: "UUIDs"})
+	root.AddGroup(uuidGroup)
 	root.AddCommand(version, v1, v3, v4, v5, v6, v7, parse)
 
 	return root.Execute()
