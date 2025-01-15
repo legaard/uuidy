@@ -38,7 +38,6 @@ func RootCmd(
 	}
 
 	cmd.SetOut(out)
-
 	applyFlags(cmd)
 
 	return cmd

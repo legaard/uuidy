@@ -19,7 +19,7 @@ func ApplyNamespaceFlag(defaultNs string) FlagApplier {
 		cmd.Flags().String(
 			flagNamespace,
 			defaultNs,
-			"namespace used when generating values",
+			"namespace used when generating value",
 		)
 	}
 }
@@ -41,7 +41,7 @@ func ApplyEpocTime() FlagApplier {
 			flagEpoch,
 			"e",
 			time.Now().Format(time.RFC3339Nano),
-			"epoch time used to generate (format: RFC3339 nano)",
+			"epoch time used to generate value (format: RFC3339 nano)",
 		)
 	}
 }
