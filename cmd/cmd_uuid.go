@@ -2,20 +2,21 @@ package cmd
 
 import (
 	"fmt"
+	"io"
+	"time"
+
 	"github.com/gofrs/uuid/v5"
 	"github.com/spf13/cobra"
-	"io"
 )
 
-func V1Cmd(writer io.Writer) *cobra.Command {
+func V1Cmd() *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 		)
 		cmd = &cobra.Command{
 			Use:     "v1",
-			Short:   "Generate an UUID V1",
+			Short:   "Generate a UUID V1",
 			Long:    "UUID based on the current timestamp and MAC address",
 			Example: "uuid v1",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -24,10 +25,10 @@ func V1Cmd(writer io.Writer) *cobra.Command {
 					return err
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
-					value, err := uuid.NewV1()
-					if err != nil {
-						return "", fmt.Errorf("generating UUID: %w", err)
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
+					value, genErr := uuid.NewV1()
+					if genErr != nil {
+						return "", fmt.Errorf("generating UUID: %w", genErr)
 					}
 
 					return value.String(), nil
@@ -41,16 +42,15 @@ func V1Cmd(writer io.Writer) *cobra.Command {
 	return cmd
 }
 
-func V3Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
+func V3Cmd(defaultNamespace uuid.UUID) *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 			ApplyNamespaceFlag(defaultNamespace.String()),
 		)
 		cmd = &cobra.Command{
 			Use:     "v3 [value]",
-			Short:   "Generate an UUID V3",
+			Short:   "Generate a UUID V3",
 			Long:    "UUID based on the MD5 hash of the namespace UUID and name",
 			Example: `uuid v3 "Hello v3"`,
 			Args:    cobra.ExactArgs(1),
@@ -70,7 +70,7 @@ func V3Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
 					return fmt.Errorf("invalid namespace: %w", err)
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
 					return uuid.NewV3(ns, args[0]).String(), nil
 				})
 			},
@@ -82,15 +82,14 @@ func V3Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
 	return cmd
 }
 
-func V4Cmd(writer io.Writer) *cobra.Command {
+func V4Cmd() *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 		)
 		cmd = &cobra.Command{
 			Use:     "v4",
-			Short:   "Generate an UUID V4",
+			Short:   "Generate a UUID V4",
 			Long:    "Randomly generated UUID",
 			Example: "uuid v4",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -99,10 +98,10 @@ func V4Cmd(writer io.Writer) *cobra.Command {
 					return err
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
-					value, err := uuid.NewV4()
-					if err != nil {
-						return "", fmt.Errorf("generating UUID: %w", err)
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
+					value, genErr := uuid.NewV4()
+					if genErr != nil {
+						return "", fmt.Errorf("generating UUID: %w", genErr)
 					}
 
 					return value.String(), nil
@@ -116,16 +115,15 @@ func V4Cmd(writer io.Writer) *cobra.Command {
 	return cmd
 }
 
-func V5Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
+func V5Cmd(defaultNamespace uuid.UUID) *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 			ApplyNamespaceFlag(defaultNamespace.String()),
 		)
 		cmd = &cobra.Command{
 			Use:     "v5 [value]",
-			Short:   "Generate an UUID V5",
+			Short:   "Generate a UUID V5",
 			Long:    "UUID based on SHA-1 hash of the namespace UUID and value",
 			Example: `uuid v5 "Hello v5"`,
 			Args:    cobra.ExactArgs(1),
@@ -145,7 +143,7 @@ func V5Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
 					return fmt.Errorf("invalid namespace: %w", err)
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
 					return uuid.NewV5(ns, args[0]).String(), nil
 				})
 			},
@@ -157,15 +155,14 @@ func V5Cmd(writer io.Writer, defaultNamespace uuid.UUID) *cobra.Command {
 	return cmd
 }
 
-func V6Cmd(writer io.Writer) *cobra.Command {
+func V6Cmd() *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 		)
 		cmd = &cobra.Command{
 			Use:     "v6",
-			Short:   "Generate an UUID V6",
+			Short:   "Generate a UUID V6",
 			Long:    "K-sortable UUID based on a timestamp and 48 bits of pseudorandom data",
 			Example: "uuid v6",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -174,10 +171,10 @@ func V6Cmd(writer io.Writer) *cobra.Command {
 					return err
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
-					value, err := uuid.NewV6()
-					if err != nil {
-						return "", fmt.Errorf("generating UUID: %w", err)
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
+					value, genErr := uuid.NewV6()
+					if genErr != nil {
+						return "", fmt.Errorf("generating UUID: %w", genErr)
 					}
 
 					return value.String(), nil
@@ -191,26 +188,37 @@ func V6Cmd(writer io.Writer) *cobra.Command {
 	return cmd
 }
 
-func V7Cmd(writer io.Writer) *cobra.Command {
+func V7Cmd() *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
+			ApplyEpocTime(),
 		)
 		cmd = &cobra.Command{
-			Use:   "v7",
-			Short: "Generate an UUID V7",
-			Long:  "K-sortable UUID based on the current millisecond precision",
+			Use:     "v7",
+			Short:   "Generate a UUID V7",
+			Long:    "K-sortable UUID based on the current millisecond precision",
+			Example: "uuid v7",
 			RunE: func(cmd *cobra.Command, args []string) error {
 				number, err := cmd.Flags().GetUint32(flagNumber)
 				if err != nil {
 					return err
 				}
 
-				return writeMany(int(number), writer, func() (string, error) {
-					value, err := uuid.NewV7()
-					if err != nil {
-						return "", fmt.Errorf("generating UUID: %w", err)
+				epochStr, err := cmd.Flags().GetString(flagEpoch)
+				if err != nil {
+					return err
+				}
+
+				epoch, err := time.Parse(time.RFC3339Nano, epochStr)
+				if err != nil {
+					return fmt.Errorf("invalid epoch format: %w", err)
+				}
+
+				return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
+					value, genErr := uuid.NewV7AtTime(epoch)
+					if genErr != nil {
+						return "", fmt.Errorf("generating UUID: %w", genErr)
 					}
 
 					return value.String(), nil
@@ -224,10 +232,56 @@ func V7Cmd(writer io.Writer) *cobra.Command {
 	return cmd
 }
 
+func Parse() *cobra.Command {
+	return &cobra.Command{
+		Use:     "parse [value]",
+		Short:   "Parse a UUID value",
+		Long:    "Parses UUID value and outputs version details",
+		Example: "uuid parse 01ebb00e-d38a-11ef-8f83-426648c33d81",
+		Args:    cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			value, err := uuid.FromString(args[0])
+			if err != nil {
+				return err
+			}
+
+			switch value.Version() {
+			case 1:
+				v1, _ := uuid.TimestampFromV1(value)
+				ts, _ := v1.Time()
+
+				cmd.Printf("version: %v\n", value.Version())
+				cmd.Printf("time: %s\n", ts.Format(time.RFC3339Nano))
+			case 3:
+				cmd.Printf("version: %v\n", value.Version())
+			case 4:
+				cmd.Printf("version: %v\n", value.Version())
+			case 5:
+				cmd.Printf("version: %v\n", value.Version())
+			case 6:
+				v1, _ := uuid.TimestampFromV6(value)
+				ts, _ := v1.Time()
+
+				cmd.Printf("version: %v\n", value.Version())
+				cmd.Printf("time: %s\n", ts.Format(time.RFC3339Nano))
+			case 7:
+				v1, _ := uuid.TimestampFromV7(value)
+				ts, _ := v1.Time()
+
+				cmd.Printf("version: %v\n", value.Version())
+				cmd.Printf("time: %s\n", ts.Format(time.RFC3339Nano))
+			}
+
+			return nil
+		},
+	}
+}
+
 func writeMany(number int, writer io.Writer, generatorFunc func() (string, error)) error {
+	var sep = "\n"
+
 	for i := 0; i < number; i++ {
 		var (
-			sep        = "\n"
 			last       = i+1 == number
 			value, err = generatorFunc()
 		)

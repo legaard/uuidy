@@ -2,18 +2,17 @@ package cmd
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/gofrs/uuid/v5"
 	"github.com/spf13/cobra"
-	"io"
 )
 
 func RootCmd(
-	outputReadWriter io.ReadWriter,
-	clipboardWriter io.Writer,
+	out io.Writer,
 	defaultUUIDFn func() (uuid.UUID, error)) *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
-			ApplyCopyClipboardFlag(),
 			ApplyNumberFlag(),
 		)
 	)
@@ -27,17 +26,18 @@ func RootCmd(
 				return err
 			}
 
-			return writeMany(int(number), outputReadWriter, func() (string, error) {
-				value, err := defaultUUIDFn()
-				if err != err {
-					return "", fmt.Errorf("generating UUID: %w", err)
+			return writeMany(int(number), out, func() (string, error) {
+				value, genErr := defaultUUIDFn()
+				if genErr != nil {
+					return "", fmt.Errorf("generating UUID: %w", genErr)
 				}
 
 				return value.String(), nil
 			})
 		},
-		PersistentPostRunE: CopyClipboardRunErr(outputReadWriter, clipboardWriter),
 	}
+
+	cmd.SetOut(out)
 
 	applyFlags(cmd)
 

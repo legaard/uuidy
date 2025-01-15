@@ -1,27 +1,18 @@
 package cmd
 
 import (
+	"time"
+
 	"github.com/spf13/cobra"
 )
 
 const (
-	flagCopy      = "copy"
 	flagNamespace = "namespace"
 	flagNumber    = "number"
+	flagEpoch     = "epoch"
 )
 
 type FlagApplier func(cmd *cobra.Command)
-
-func ApplyCopyClipboardFlag() FlagApplier {
-	return func(cmd *cobra.Command) {
-		cmd.Flags().BoolP(
-			flagCopy,
-			"c",
-			false,
-			"copy value to clipboard",
-		)
-	}
-}
 
 func ApplyNamespaceFlag(defaultNs string) FlagApplier {
 	return func(cmd *cobra.Command) {
@@ -40,6 +31,17 @@ func ApplyNumberFlag() FlagApplier {
 			"n",
 			1,
 			"number of values to generate",
+		)
+	}
+}
+
+func ApplyEpocTime() FlagApplier {
+	return func(cmd *cobra.Command) {
+		cmd.Flags().StringP(
+			flagEpoch,
+			"e",
+			time.Now().Format(time.RFC3339Nano),
+			"epoch time used to generate (format: RFC3339 nano)",
 		)
 	}
 }

@@ -3,8 +3,8 @@ module uuid
 go 1.21.1
 
 require (
-	github.com/gofrs/uuid/v5 v5.0.0
-	github.com/spf13/cobra v1.7.0
+	github.com/gofrs/uuid/v5 v5.3.0
+	github.com/spf13/cobra v1.8.1
 )
 
 require (

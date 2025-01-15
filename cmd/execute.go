@@ -1,17 +1,16 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/gofrs/uuid/v5"
 	"github.com/spf13/cobra"
-	"log"
-	"uuid/internal/capture"
-	"uuid/internal/clipboard"
 )
 
 var (
-	cliVersion = "0.0.1"
+	cliVersion = "0.0.2"
 
-	groupGenerator = "UUID_GENERATOR"
+	groupUUID = "UUID"
 
 	defaultNamespace     = uuid.NamespaceDNS
 	defaultUUIDGenerator = uuid.NewV4
@@ -19,30 +18,28 @@ var (
 
 func Execute() error {
 	var (
-		writer          = log.Writer()
-		clipboardWriter = clipboard.NewWriter()
-		captureWriter   = capture.NewWriter(writer)
-
-		root    = RootCmd(captureWriter, clipboardWriter, defaultUUIDGenerator)
+		writer  = os.Stdout
+		root    = RootCmd(writer, defaultUUIDGenerator)
 		version = VersionCmd(cliVersion)
-		v1      = V1Cmd(captureWriter)
-		v3      = V3Cmd(captureWriter, defaultNamespace)
-		v4      = V4Cmd(captureWriter)
-		v5      = V5Cmd(captureWriter, defaultNamespace)
-		v6      = V6Cmd(captureWriter)
-		v7      = V7Cmd(captureWriter)
+		v1      = V1Cmd()
+		v3      = V3Cmd(defaultNamespace)
+		v4      = V4Cmd()
+		v5      = V5Cmd(defaultNamespace)
+		v6      = V6Cmd()
+		v7      = V7Cmd()
+		parse   = Parse()
 	)
 
-	root.AddCommand(version)
+	v1.GroupID = groupUUID
+	v3.GroupID = groupUUID
+	v4.GroupID = groupUUID
+	v5.GroupID = groupUUID
+	v6.GroupID = groupUUID
+	v7.GroupID = groupUUID
+	parse.GroupID = groupUUID
 
-	root.AddGroup(&cobra.Group{ID: groupGenerator, Title: "Generate UUIDs"})
-	v1.GroupID = groupGenerator
-	v3.GroupID = groupGenerator
-	v4.GroupID = groupGenerator
-	v5.GroupID = groupGenerator
-	v6.GroupID = groupGenerator
-	v7.GroupID = groupGenerator
-	root.AddCommand(v1, v3, v4, v5, v6, v7)
+	root.AddGroup(&cobra.Group{ID: groupUUID, Title: "UUIDs"})
+	root.AddCommand(version, v1, v3, v4, v5, v6, v7, parse)
 
 	return root.Execute()
 }
