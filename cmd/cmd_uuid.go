@@ -232,7 +232,7 @@ func V7Cmd() *cobra.Command {
 	return cmd
 }
 
-func Parse() *cobra.Command {
+func ParseCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "parse [value]",
 		Short:   "Parse a UUID value",

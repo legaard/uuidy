@@ -27,7 +27,7 @@ func Execute() error {
 		v5      = V5Cmd(defaultNamespace)
 		v6      = V6Cmd()
 		v7      = V7Cmd()
-		parse   = Parse()
+		parse   = ParseCmd()
 	)
 
 	v1.GroupID = groupUUID
