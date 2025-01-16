@@ -21,7 +21,7 @@ func RootCmd(
 		Use:   "uuid",
 		Short: fmt.Sprintf("CLI for generating UUIDs (default V%d)", uuid.Must(defaultUUIDFn()).Version()),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			number, err := cmd.Flags().GetUint32(flagNumber)
+			number, err := cmd.Flags().GetUint32(FlagNumber)
 			if err != nil {
 				return err
 			}

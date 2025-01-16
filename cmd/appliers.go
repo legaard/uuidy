@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	flagNamespace = "namespace"
-	flagNumber    = "number"
-	flagEpoch     = "epoch"
+	FlagNamespace = "namespace"
+	FlagNumber    = "number"
+	FlagEpoch     = "epoch"
 )
 
 type FlagApplier func(cmd *cobra.Command)
@@ -17,7 +17,7 @@ type FlagApplier func(cmd *cobra.Command)
 func ApplyNamespaceFlag(defaultNs string) FlagApplier {
 	return func(cmd *cobra.Command) {
 		cmd.Flags().String(
-			flagNamespace,
+			FlagNamespace,
 			defaultNs,
 			"namespace used when generating value",
 		)
@@ -27,7 +27,7 @@ func ApplyNamespaceFlag(defaultNs string) FlagApplier {
 func ApplyNumberFlag() FlagApplier {
 	return func(cmd *cobra.Command) {
 		cmd.Flags().Uint32P(
-			flagNumber,
+			FlagNumber,
 			"n",
 			1,
 			"number of values to generate",
@@ -38,7 +38,7 @@ func ApplyNumberFlag() FlagApplier {
 func ApplyEpocTime() FlagApplier {
 	return func(cmd *cobra.Command) {
 		cmd.Flags().StringP(
-			flagEpoch,
+			FlagEpoch,
 			"e",
 			time.Now().Format(time.RFC3339Nano),
 			"epoch time used to generate value (format: RFC3339 nano)",
