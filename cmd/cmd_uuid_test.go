@@ -309,3 +309,59 @@ func TestV5Cmd(t *testing.T) {
 		assert.UUIDVersion(t, string(actual), 5)
 	})
 }
+
+func TestV6Cmd(t *testing.T) {
+	t.Run(`use is "v6"`, func(t *testing.T) {
+		// arrange
+		var (
+			sut = cmd.V6Cmd()
+		)
+
+		// act
+		actual := sut.Use
+
+		// assert
+		assert.Equal(t, actual, "v6")
+	})
+
+	t.Run("generate UUID", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			sut        = cmd.V6Cmd()
+		)
+		sut.SetOut(writerMock)
+
+		// act
+		err := sut.RunE(sut, []string{"testing"})
+
+		// assert
+		assert.NoError(t, err)
+		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+
+		actual := writerMock.WriteCalls()[0].P
+		assert.UUIDVersion(t, string(actual), 6)
+	})
+
+	t.Run("generate multiple UUIDs", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			number     = 10
+			sut        = cmd.V6Cmd()
+		)
+		sut.SetOut(writerMock)
+		_ = sut.Flags().Set(cmd.FlagNumber, fmt.Sprintf("%d", number))
+
+		// act
+		err := sut.RunE(sut, []string{"testing"})
+
+		// assert
+		assert.NoError(t, err)
+		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		for _, call := range writerMock.WriteCalls() {
+			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
+			assert.UUIDVersion(t, actual, 6)
+		}
+	})
+}
