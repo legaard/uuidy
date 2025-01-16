@@ -9,6 +9,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func NullCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "null",
+		Short: "Output null UUID",
+		Run: func(cmd *cobra.Command, _ []string) {
+			cmd.Printf("00000000-0000-0000-0000-000000000000")
+		},
+	}
+}
+
 func V1Cmd() *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
@@ -16,7 +26,7 @@ func V1Cmd() *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v1",
-			Short:   "Generate a UUID V1",
+			Short:   "Generate UUID V1",
 			Long:    "UUID based on the current timestamp and MAC address",
 			Example: "uuid v1",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -50,7 +60,7 @@ func V3Cmd(defaultNamespace uuid.UUID) *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v3 [value]",
-			Short:   "Generate a UUID V3",
+			Short:   "Generate UUID V3",
 			Long:    "UUID based on the MD5 hash of the namespace UUID and name",
 			Example: `uuid v3 "Hello v3"`,
 			Args:    cobra.ExactArgs(1),
@@ -89,7 +99,7 @@ func V4Cmd() *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v4",
-			Short:   "Generate a UUID V4",
+			Short:   "Generate UUID V4",
 			Long:    "Randomly generated UUID",
 			Example: "uuid v4",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -123,7 +133,7 @@ func V5Cmd(defaultNamespace uuid.UUID) *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v5 [value]",
-			Short:   "Generate a UUID V5",
+			Short:   "Generate UUID V5",
 			Long:    "UUID based on SHA-1 hash of the namespace UUID and value",
 			Example: `uuid v5 "Hello v5"`,
 			Args:    cobra.ExactArgs(1),
@@ -162,7 +172,7 @@ func V6Cmd() *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v6",
-			Short:   "Generate a UUID V6",
+			Short:   "Generate UUID V6",
 			Long:    "K-sortable UUID based on a timestamp and 48 bits of pseudorandom data",
 			Example: "uuid v6",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -196,7 +206,7 @@ func V7Cmd() *cobra.Command {
 		)
 		cmd = &cobra.Command{
 			Use:     "v7",
-			Short:   "Generate a UUID V7",
+			Short:   "Generate UUID V7",
 			Long:    "K-sortable UUID based on the current millisecond precision",
 			Example: "uuid v7",
 			RunE: func(cmd *cobra.Command, args []string) error {
@@ -235,7 +245,7 @@ func V7Cmd() *cobra.Command {
 func ParseCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:     "parse [value]",
-		Short:   "Parse a UUID value",
+		Short:   "Parse UUID value",
 		Long:    "Parses UUID value and outputs version details",
 		Example: "uuid parse 01ebb00e-d38a-11ef-8f83-426648c33d81",
 		Args:    cobra.ExactArgs(1),

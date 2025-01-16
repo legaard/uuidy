@@ -7,9 +7,9 @@ import (
 func VersionCmd(version string) *cobra.Command {
 	return &cobra.Command{
 		Use:   "version",
-		Short: "Prints the CLI version",
+		Short: "Print CLI version",
 		Run: func(cmd *cobra.Command, args []string) {
-			cmd.Printf("version is: %s\n", version)
+			cmd.Printf("%s", version)
 		},
 	}
 }
