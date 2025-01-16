@@ -6,7 +6,7 @@ func NoError(t *testing.T, err error) {
 	t.Helper()
 
 	if err != nil {
-		t.Fatalf("Got error: %v", err)
+		t.Fatalf("Expected no error: got %v", err)
 	}
 }
 
@@ -14,6 +14,6 @@ func Error(t *testing.T, err error) {
 	t.Helper()
 
 	if err == nil {
-		t.Fatalf("Got no error")
+		t.Fatalf("Expected error: got <nil>")
 	}
 }

@@ -11,7 +11,7 @@ func UUIDVersion(t *testing.T, actual string, version uint32) {
 
 	parsed, err := uuid.FromString(actual)
 	if err != nil {
-		t.Fatalf("Value not a UUID: %s", err)
+		t.Fatalf("Expected UUID: %s", err)
 	}
 
 	Equal(t, version, uint32(parsed.Version()))
@@ -22,6 +22,6 @@ func UUID(t *testing.T, actual string) {
 
 	_, err := uuid.FromString(actual)
 	if err != nil {
-		t.Fatalf("Value not a UUID: %s", err)
+		t.Fatalf("Expected UUID: %s", err)
 	}
 }
