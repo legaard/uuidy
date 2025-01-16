@@ -142,7 +142,7 @@ func TestV3Cmd(t *testing.T) {
 		// arrange
 		var (
 			writerMock = &WriterMock{}
-			ns         = "ff48ce43-7762-494f-b045-6dc0a129c55a"
+			ns         = uuid.Must(uuid.NewV4()).String()
 			sut        = cmd.V3Cmd(uuid.NamespaceDNS)
 		)
 		sut.SetOut(writerMock)
