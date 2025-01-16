@@ -22,7 +22,7 @@ func TestV1Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v1")
+		assert.Equal(t, "v1", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -41,7 +41,7 @@ func TestV1Cmd(t *testing.T) {
 		assert.Equal(t, len(writerMock.WriteCalls()), 1)
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 1)
+		assert.UUIDVersion(t, 1, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -59,10 +59,10 @@ func TestV1Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 1)
+			assert.UUIDVersion(t, 1, actual)
 		}
 	})
 }
@@ -78,7 +78,7 @@ func TestV3Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v3 [value]")
+		assert.Equal(t, "v3 [value]", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -94,10 +94,10 @@ func TestV3Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 3)
+		assert.UUIDVersion(t, 3, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -115,10 +115,10 @@ func TestV3Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 3)
+			assert.UUIDVersion(t, 3, actual)
 		}
 	})
 
@@ -154,10 +154,10 @@ func TestV3Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 3)
+		assert.UUIDVersion(t, 3, string(actual))
 	})
 }
 
@@ -172,7 +172,7 @@ func TestV4Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v4")
+		assert.Equal(t, "v4", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -188,10 +188,10 @@ func TestV4Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 4)
+		assert.UUIDVersion(t, 4, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -209,10 +209,10 @@ func TestV4Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 4)
+			assert.UUIDVersion(t, 4, actual)
 		}
 	})
 }
@@ -228,7 +228,7 @@ func TestV5Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v5 [value]")
+		assert.Equal(t, "v5 [value]", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -244,10 +244,10 @@ func TestV5Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 5)
+		assert.UUIDVersion(t, 5, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -265,10 +265,10 @@ func TestV5Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 5)
+			assert.UUIDVersion(t, 5, actual)
 		}
 	})
 
@@ -304,10 +304,10 @@ func TestV5Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 5)
+		assert.UUIDVersion(t, 5, string(actual))
 	})
 }
 
@@ -322,7 +322,7 @@ func TestV6Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v6")
+		assert.Equal(t, "v6", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -338,10 +338,10 @@ func TestV6Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 6)
+		assert.UUIDVersion(t, 6, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -359,10 +359,10 @@ func TestV6Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 6)
+			assert.UUIDVersion(t, 6, actual)
 		}
 	})
 }
@@ -378,7 +378,7 @@ func TestV7Cmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "v7")
+		assert.Equal(t, "v7", actual)
 	})
 
 	t.Run("generate UUID", func(t *testing.T) {
@@ -394,10 +394,10 @@ func TestV7Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 7)
+		assert.UUIDVersion(t, 7, string(actual))
 	})
 
 	t.Run("generate multiple UUIDs", func(t *testing.T) {
@@ -415,10 +415,10 @@ func TestV7Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		assert.Equal(t, number, len(writerMock.WriteCalls()))
 		for _, call := range writerMock.WriteCalls() {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
-			assert.UUIDVersion(t, actual, 7)
+			assert.UUIDVersion(t, 7, actual)
 		}
 	})
 
@@ -454,10 +454,10 @@ func TestV7Cmd(t *testing.T) {
 
 		// assert
 		assert.NoError(t, err)
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.UUIDVersion(t, string(actual), 7)
+		assert.UUIDVersion(t, 7, string(actual))
 	})
 }
 
@@ -472,7 +472,7 @@ func TestNullCmd(t *testing.T) {
 		actual := sut.Use
 
 		// assert
-		assert.Equal(t, actual, "null")
+		assert.Equal(t, "null", actual)
 	})
 
 	t.Run("generate null UUID", func(t *testing.T) {
@@ -487,9 +487,9 @@ func TestNullCmd(t *testing.T) {
 		sut.Run(sut, nil)
 
 		// assert
-		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+		assert.Equal(t, 1, len(writerMock.WriteCalls()))
 
 		actual := writerMock.WriteCalls()[0].P
-		assert.Equal(t, string(actual), "00000000-0000-0000-0000-000000000000")
+		assert.Equal(t, "00000000-0000-0000-0000-000000000000", string(actual))
 	})
 }

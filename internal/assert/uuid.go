@@ -6,10 +6,10 @@ import (
 	"github.com/gofrs/uuid/v5"
 )
 
-func UUIDVersion(t *testing.T, actual string, version uint32) {
+func UUIDVersion(t *testing.T, version uint32, value string) {
 	t.Helper()
 
-	parsed, err := uuid.FromString(actual)
+	parsed, err := uuid.FromString(value)
 	if err != nil {
 		t.Fatalf("Expected UUID: %s", err)
 	}
@@ -17,10 +17,10 @@ func UUIDVersion(t *testing.T, actual string, version uint32) {
 	Equal(t, version, uint32(parsed.Version()))
 }
 
-func UUID(t *testing.T, actual string) {
+func UUID(t *testing.T, value string) {
 	t.Helper()
 
-	_, err := uuid.FromString(actual)
+	_, err := uuid.FromString(value)
 	if err != nil {
 		t.Fatalf("Expected UUID: %s", err)
 	}
