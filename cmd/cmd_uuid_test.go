@@ -460,3 +460,36 @@ func TestV7Cmd(t *testing.T) {
 		assert.UUIDVersion(t, string(actual), 7)
 	})
 }
+
+func TestNullCmd(t *testing.T) {
+	t.Run(`use is "null"`, func(t *testing.T) {
+		// arrange
+		var (
+			sut = cmd.NullCmd()
+		)
+
+		// act
+		actual := sut.Use
+
+		// assert
+		assert.Equal(t, actual, "null")
+	})
+
+	t.Run("generate null UUID", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			sut        = cmd.NullCmd()
+		)
+		sut.SetOut(writerMock)
+
+		// act
+		sut.Run(sut, nil)
+
+		// assert
+		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+
+		actual := writerMock.WriteCalls()[0].P
+		assert.Equal(t, string(actual), "00000000-0000-0000-0000-000000000000")
+	})
+}
