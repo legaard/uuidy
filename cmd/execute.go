@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"os"
-
 	"github.com/gofrs/uuid/v5"
 	"github.com/spf13/cobra"
 )
@@ -13,9 +11,7 @@ func Execute() error {
 		defaultNamespace     = uuid.NamespaceDNS
 		defaultUUIDGenerator = uuid.NewV4
 
-		writer = os.Stdout
-
-		root       = RootCmd(writer, defaultUUIDGenerator)
+		root       = RootCmd(defaultUUIDGenerator)
 		versionCmd = VersionCmd(cliVersion)
 		v1         = V1Cmd()
 		v3         = V3Cmd(defaultNamespace)

@@ -2,21 +2,17 @@ package cmd
 
 import (
 	"fmt"
-	"io"
 
 	"github.com/gofrs/uuid/v5"
 	"github.com/spf13/cobra"
 )
 
-func RootCmd(
-	out io.Writer,
-	defaultUUIDFn func() (uuid.UUID, error)) *cobra.Command {
+func RootCmd(defaultUUIDFn func() (uuid.UUID, error)) *cobra.Command {
 	var (
 		applyFlags = MergeAppliers(
 			ApplyNumberFlag(),
 		)
 	)
-
 	cmd := &cobra.Command{
 		Use:   "uuid",
 		Short: fmt.Sprintf("CLI for generating UUIDs (default V%d)", uuid.Must(defaultUUIDFn()).Version()),
@@ -26,7 +22,7 @@ func RootCmd(
 				return err
 			}
 
-			return writeMany(int(number), out, func() (string, error) {
+			return writeMany(int(number), cmd.OutOrStdout(), func() (string, error) {
 				value, genErr := defaultUUIDFn()
 				if genErr != nil {
 					return "", fmt.Errorf("generating UUID: %w", genErr)
@@ -37,7 +33,6 @@ func RootCmd(
 		},
 	}
 
-	cmd.SetOut(out)
 	applyFlags(cmd)
 
 	return cmd
