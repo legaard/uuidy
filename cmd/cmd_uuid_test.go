@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 	"uuid/cmd"
 	"uuid/internal/assert"
 
@@ -183,7 +184,7 @@ func TestV4Cmd(t *testing.T) {
 		sut.SetOut(writerMock)
 
 		// act
-		err := sut.RunE(sut, []string{"testing"})
+		err := sut.RunE(sut, nil)
 
 		// assert
 		assert.NoError(t, err)
@@ -204,7 +205,7 @@ func TestV4Cmd(t *testing.T) {
 		_ = sut.Flags().Set(cmd.FlagNumber, fmt.Sprintf("%d", number))
 
 		// act
-		err := sut.RunE(sut, []string{"testing"})
+		err := sut.RunE(sut, nil)
 
 		// assert
 		assert.NoError(t, err)
@@ -333,7 +334,7 @@ func TestV6Cmd(t *testing.T) {
 		sut.SetOut(writerMock)
 
 		// act
-		err := sut.RunE(sut, []string{"testing"})
+		err := sut.RunE(sut, nil)
 
 		// assert
 		assert.NoError(t, err)
@@ -354,7 +355,7 @@ func TestV6Cmd(t *testing.T) {
 		_ = sut.Flags().Set(cmd.FlagNumber, fmt.Sprintf("%d", number))
 
 		// act
-		err := sut.RunE(sut, []string{"testing"})
+		err := sut.RunE(sut, nil)
 
 		// assert
 		assert.NoError(t, err)
@@ -363,5 +364,99 @@ func TestV6Cmd(t *testing.T) {
 			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
 			assert.UUIDVersion(t, actual, 6)
 		}
+	})
+}
+
+func TestV7Cmd(t *testing.T) {
+	t.Run(`use is "v7"`, func(t *testing.T) {
+		// arrange
+		var (
+			sut = cmd.V7Cmd()
+		)
+
+		// act
+		actual := sut.Use
+
+		// assert
+		assert.Equal(t, actual, "v7")
+	})
+
+	t.Run("generate UUID", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			sut        = cmd.V7Cmd()
+		)
+		sut.SetOut(writerMock)
+
+		// act
+		err := sut.RunE(sut, nil)
+
+		// assert
+		assert.NoError(t, err)
+		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+
+		actual := writerMock.WriteCalls()[0].P
+		assert.UUIDVersion(t, string(actual), 7)
+	})
+
+	t.Run("generate multiple UUIDs", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			number     = 10
+			sut        = cmd.V7Cmd()
+		)
+		sut.SetOut(writerMock)
+		_ = sut.Flags().Set(cmd.FlagNumber, fmt.Sprintf("%d", number))
+
+		// act
+		err := sut.RunE(sut, nil)
+
+		// assert
+		assert.NoError(t, err)
+		assert.Equal(t, len(writerMock.WriteCalls()), number)
+		for _, call := range writerMock.WriteCalls() {
+			actual := strings.ReplaceAll(string(call.P), "\n", "") // remove new lines
+			assert.UUIDVersion(t, actual, 7)
+		}
+	})
+
+	t.Run("return error on invalid epoch", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			epoch      = "invalid"
+			sut        = cmd.V7Cmd()
+		)
+		sut.SetOut(writerMock)
+		_ = sut.Flags().Set(cmd.FlagEpoch, epoch)
+
+		// act
+		err := sut.RunE(sut, nil)
+
+		// assert
+		assert.Error(t, err)
+	})
+
+	t.Run("generate uuid with epoch", func(t *testing.T) {
+		// arrange
+		var (
+			writerMock = &WriterMock{}
+			epoch      = time.Now().Format(time.RFC3339Nano)
+			sut        = cmd.V7Cmd()
+		)
+		sut.SetOut(writerMock)
+		_ = sut.Flags().Set(cmd.FlagEpoch, epoch)
+
+		// act
+		err := sut.RunE(sut, nil)
+
+		// assert
+		assert.NoError(t, err)
+		assert.Equal(t, len(writerMock.WriteCalls()), 1)
+
+		actual := writerMock.WriteCalls()[0].P
+		assert.UUIDVersion(t, string(actual), 7)
 	})
 }

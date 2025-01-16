@@ -29,7 +29,7 @@ func V1Cmd() *cobra.Command {
 			Short:   "Generate UUID V1",
 			Long:    "UUID based on the current timestamp and MAC address",
 			Example: "uuid v1",
-			RunE: func(cmd *cobra.Command, args []string) error {
+			RunE: func(cmd *cobra.Command, _ []string) error {
 				number, err := cmd.Flags().GetUint32(FlagNumber)
 				if err != nil {
 					return err
@@ -102,7 +102,7 @@ func V4Cmd() *cobra.Command {
 			Short:   "Generate UUID V4",
 			Long:    "Randomly generated UUID",
 			Example: "uuid v4",
-			RunE: func(cmd *cobra.Command, args []string) error {
+			RunE: func(cmd *cobra.Command, _ []string) error {
 				number, err := cmd.Flags().GetUint32(FlagNumber)
 				if err != nil {
 					return err
@@ -175,7 +175,7 @@ func V6Cmd() *cobra.Command {
 			Short:   "Generate UUID V6",
 			Long:    "K-sortable UUID based on a timestamp and 48 bits of pseudorandom data",
 			Example: "uuid v6",
-			RunE: func(cmd *cobra.Command, args []string) error {
+			RunE: func(cmd *cobra.Command, _ []string) error {
 				number, err := cmd.Flags().GetUint32(FlagNumber)
 				if err != nil {
 					return err
@@ -209,7 +209,7 @@ func V7Cmd() *cobra.Command {
 			Short:   "Generate UUID V7",
 			Long:    "K-sortable UUID based on the current millisecond precision",
 			Example: "uuid v7",
-			RunE: func(cmd *cobra.Command, args []string) error {
+			RunE: func(cmd *cobra.Command, _ []string) error {
 				number, err := cmd.Flags().GetUint32(FlagNumber)
 				if err != nil {
 					return err
