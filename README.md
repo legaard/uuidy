@@ -14,7 +14,7 @@ working with UUIDs.
 
 It simplifies tasks across various use cases:
 
-- **Quick Generation**: Instantly create UUIDs for different ad-hoc tasks.
+- **Quick Generation**: Instantly create UUIDs for ad-hoc tasks.
 - **Automation-Friendly**: Easily integrate into scripts, CI/CD pipelines, and automated workflows.
 - **Cross-Platform**: Works consistently across different operating systems and environments.
 - **Validation**: Quickly parse and verify UUIDs to ensure correctness and data integrity.
