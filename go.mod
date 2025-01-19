@@ -1,4 +1,4 @@
-module uuid
+module github.com/legaard/uuid
 
 go 1.21.1
 

@@ -2,11 +2,11 @@ package cmd_test
 
 import (
 	"fmt"
+	"github.com/legaard/uuid/cmd"
+	"github.com/legaard/uuid/internal/assert"
 	"strings"
 	"testing"
 	"time"
-	"uuid/cmd"
-	"uuid/internal/assert"
 
 	"github.com/gofrs/uuid/v5"
 )

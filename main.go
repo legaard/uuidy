@@ -2,7 +2,8 @@ package main
 
 import (
 	"os"
-	"uuid/cmd"
+
+	"github.com/legaard/uuid/cmd"
 )
 
 func main() {

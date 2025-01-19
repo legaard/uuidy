@@ -4,8 +4,8 @@
 package cmd_test
 
 import (
+	"github.com/legaard/uuid/cmd"
 	"sync"
-	"uuid/cmd"
 )
 
 // Ensure, that WriterMock does implement cmd.Writer.
