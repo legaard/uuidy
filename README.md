@@ -1,8 +1,8 @@
-# UUID CLI 🛠️
+# 🛠 UUIDy
 
-A simple and efficient Command-Line Interface (CLI) for generating and managing UUIDs. By default, the tool generates
-UUIDs of Version 4, but it supports a wide range of UUID versions and additional functionality for parsing and
-working with UUIDs.
+`uuidy` (pronounced "you-you-eye-dee") is a simple and efficient Command-Line Interface (CLI) for generating and
+managing UUIDs. By default, the tool generates UUIDs of Version 4, but it supports a wide range of UUID versions and
+additional functionality for parsing and working with UUIDs.
 
 ## Features
 
@@ -10,7 +10,7 @@ working with UUIDs.
 - Parse and validate UUIDs
 - Support for generating multiple UUIDs at once
 
-## Why is this tool Useful?
+## Why is this Tool Useful?
 
 It simplifies tasks across various use cases:
 
@@ -24,13 +24,13 @@ working with UUIDs.
 
 ## Installation
 
-Install using Go:
+Install using [Go](https://go.dev/)
 
 ```bash
 $ go install github.com/legaard/uuidy@latest
 ```
 
-or install from Homebrew:
+or [Homebrew](https://brew.sh/)
 
 ```bash
 $ brew tap legaard/legaard && brew install uuidy
@@ -77,7 +77,7 @@ $ uuidy
   ```
 
 - **`v4`**  
-  Generates a Version 4 (random) UUID. This is the default behavior.
+  Generates a Version 4 (random) UUID. 
 
   ```bash
   $ uuidy v4
@@ -98,7 +98,7 @@ $ uuidy
   ```
 
 - **`v7`**  
-  Generates a Version 7 UUID. Epoch used is the current time on the machine.
+  Generates a Version 7 UUID.
 
   ```bash
   $ uuidy v7
