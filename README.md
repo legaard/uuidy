@@ -24,7 +24,17 @@ working with UUIDs.
 
 ## Installation
 
-// TODO: TBD
+Install using Go:
+
+```bash
+$ go install github.com/legaard/uuidy@latest
+```
+
+or install from Homebrew:
+
+```bash
+$ brew tap legaard/legaard && brew install uuidy
+```
 
 ## Usage
 
