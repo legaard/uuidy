@@ -29,3 +29,10 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 
+brews:
+  -
+    repository:
+      owner: legaard
+      name: homebrew-legaard
+    homepage: 'https://github.com/legaard/uuidy'
+    description: 'A small CLI tool for working with UUIDs'
