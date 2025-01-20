@@ -37,9 +37,8 @@ func ApplyNumberFlag() FlagApplier {
 
 func ApplyEpocTime() FlagApplier {
 	return func(cmd *cobra.Command) {
-		cmd.Flags().StringP(
+		cmd.Flags().String(
 			FlagEpoch,
-			"e",
 			time.Now().Format(time.RFC3339Nano),
 			"epoch time used to generate value (format: RFC3339 nano)",
 		)
