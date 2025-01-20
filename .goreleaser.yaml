@@ -33,6 +33,6 @@ brews:
   -
     repository:
       owner: legaard
-      name: homebrew-legaard
+      name: homebrew-tools
     homepage: 'https://github.com/legaard/uuidy'
     description: 'A small CLI tool for working with UUIDs'

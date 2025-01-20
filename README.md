@@ -33,7 +33,7 @@ $ go install github.com/legaard/uuidy@latest
 or [Homebrew](https://brew.sh/)
 
 ```bash
-$ brew tap legaard/legaard && brew install uuidy
+$ brew tap legaard/tools && brew install uuidy
 ```
 
 ## Usage
