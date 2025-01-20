@@ -4,7 +4,7 @@
 package cmd_test
 
 import (
-	"github.com/legaard/uuid/cmd"
+	"github.com/legaard/uuidy/cmd"
 	"sync"
 )
 

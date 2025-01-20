@@ -2,8 +2,8 @@ package cmd_test
 
 import (
 	"fmt"
-	"github.com/legaard/uuid/cmd"
-	"github.com/legaard/uuid/internal/assert"
+	"github.com/legaard/uuidy/cmd"
+	"github.com/legaard/uuidy/internal/assert"
 	"strings"
 	"testing"
 	"time"

@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/legaard/uuid/cmd"
+	"github.com/legaard/uuidy/cmd"
 )
 
 func main() {
