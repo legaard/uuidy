@@ -1,4 +1,9 @@
 # 🛠 UUIDy
+[![Build Status](https://github.com/legaard/uuidy/actions/workflows/go.yml/badge.svg)](https://github.com/legaard/uuidy/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/legaard/uuidy)](https://goreportcard.com/report/github.com/legaard/uuidy)
+[![License](https://img.shields.io/github/license/legaard/uuidy)](https://github.com/legaard/uuidy/blob/main/LICENSE)
+[![Release](https://img.shields.io/github/release/legaard/uuidy.svg)](https://github.com/legaard/uuidy/releases)
+[![Issues](https://img.shields.io/github/issues/legaard/uuidy)](https://github.com/legaard/uuidy/issues)
 
 `uuidy` (pronounced "you-you-eye-dee") is a simple and efficient Command-Line Interface (CLI) for generating and
 managing UUIDs. By default, the tool generates UUIDs of Version 4, but it supports a wide range of UUID versions and
