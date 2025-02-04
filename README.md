@@ -38,7 +38,7 @@ $ go install github.com/legaard/uuidy@latest
 or [Homebrew](https://brew.sh/)
 
 ```bash
-$ brew tap legaard/tools/uuidy
+$ brew install legaard/tools/uuidy
 ```
 
 ## Usage
