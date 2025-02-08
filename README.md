@@ -1,4 +1,5 @@
 # 🛠 UUIDy
+
 [![Build Status](https://github.com/legaard/uuidy/actions/workflows/go.yml/badge.svg)](https://github.com/legaard/uuidy/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/legaard/uuidy)](https://goreportcard.com/report/github.com/legaard/uuidy)
 [![License](https://img.shields.io/github/license/legaard/uuidy)](https://github.com/legaard/uuidy/blob/main/LICENSE)
@@ -32,13 +33,13 @@ working with UUIDs.
 Install using [Go](https://go.dev/)
 
 ```bash
-$ go install github.com/legaard/uuidy@latest
+go install github.com/legaard/uuidy@latest
 ```
 
 or [Homebrew](https://brew.sh/)
 
 ```bash
-$ brew install legaard/tools/uuidy
+brew install legaard/tools/uuidy
 ```
 
 ## Usage
@@ -46,83 +47,89 @@ $ brew install legaard/tools/uuidy
 Run the `uuidy` command to generate a single V4 UUID by default:
 
 ```bash
-$ uuidy
+uuidy
+```
+
+Output:
+
+```
+835222e6-37b8-458f-b82c-d391b0401ec8
 ```
 
 ### Commands
 
 #### UUID Commands
 
-- **`null`**  
+- **`null`**
   Outputs the null UUID.
 
   ```bash
-  $ uuidy null
+  uuidy null
   ```
 
-- **`parse`**  
+- **`parse`**
   Parses and validates a given UUID string.
 
   ```bash
-  $ uuidy parse e4eaaaf2-d142-11e1-b3e4-080027620cdd
+  uuidy parse e4eaaaf2-d142-11e1-b3e4-080027620cdd
   ```
 
-- **`v1`**  
+- **`v1`**
   Generates a Version 1 (timestamp-based) UUID.
 
   ```bash
-  $ uuidy v1
+  uuidy v1
   ```
 
-- **`v3`**  
+- **`v3`**
   Generates a Version 3 (namespace-based, MD5 hash) UUID.
 
   ```bash
-  $ uuidy v3 "some value"
+  uuidy v3 "some value"
   ```
 
-- **`v4`**  
-  Generates a Version 4 (random) UUID. 
+- **`v4`**
+  Generates a Version 4 (random) UUID.
 
   ```bash
-  $ uuidy v4
+  uuidy v4
   ```
 
-- **`v5`**  
+- **`v5`**
   Generates a Version 5 (namespace-based, SHA-1 hash) UUID.
 
   ```bash
-  $ uuidy v5 "some value"
+  uuidy v5 "some value"
   ```
 
-- **`v6`**  
+- **`v6`**
   Generates a Version 6 UUID.
 
   ```bash
-  $ uuidy v6
+  uuidy v6
   ```
 
-- **`v7`**  
+- **`v7`**
   Generates a Version 7 UUID.
 
   ```bash
-  $ uuidy v7
+  uuidy v7
   ```
 
 #### Additional Commands
 
-- **`help`**  
+- **`help`**
   Displays help information about any command.
 
   ```bash
-  $ uuidy help
+  uuidy help
   ```
 
-- **`version`**  
+- **`version`**
   Prints the current version of the CLI.
 
   ```bash
-  $ uuidy version
+  uuidy version
   ```
 
 ## Examples
@@ -130,7 +137,13 @@ $ uuidy
 ### Generate Multiple UUIDs
 
 ```bash
-$ uuidy v7 -n 5
+uuidy v7 -n 5
+
+```
+
+Ouput:
+
+```
 01947961-e155-7a32-82f1-1b2491f301ac
 01947961-e155-7a33-ae7b-2a409d7388ab
 01947961-e155-7a34-b168-c1a743900b1e
@@ -141,22 +154,36 @@ $ uuidy v7 -n 5
 ### Generate UUID with custom namespace
 
 ```bash
-$ uuidy v5 --namespace 869d7b84-d678-11ef-91a1-426648c33d81 "some value"
+uuidy v5 --namespace 869d7b84-d678-11ef-91a1-426648c33d81 "some value"
+```
+
+Ouput:
+
+```
 e21ac596-de47-5afa-a4c6-009662c4b663
 ```
 
 ### Generate UUID with custom epoch
 
 ```bash
-$ uuidy v7 --epoch 2025-01-18T13:10:05+01:00
+uuidy v7 --epoch 2025-01-18T13:10:05+01:00
+```
+
+Ouput:
+
+```
 01947952-0148-73d4-bca8-095cd1891884
 ```
 
 ### Parse a UUID
 
 ```bash
-$ uuidy parse 2733f45e-d595-11ef-b95f-426648c33d81
+uuidy parse 2733f45e-d595-11ef-b95f-426648c33d81
+```
+
+Ouput:
+
+```
 version: 1
 time: 2025-01-18T13:10:05.633443+01:00
 ```
-
