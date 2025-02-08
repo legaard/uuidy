@@ -27,12 +27,11 @@ archives:
         format: zip
 
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
 brews:
-  -
-    repository:
+  - repository:
       owner: legaard
       name: homebrew-tools
-    homepage: 'https://github.com/legaard/uuidy'
-    description: 'A small CLI tool for working with UUIDs'
+    homepage: "https://github.com/legaard/uuidy"
+    description: "A small CLI tool for working with UUIDs"
