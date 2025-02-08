@@ -5,9 +5,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func Execute() error {
+func Execute(version string) error {
 	var (
-		cliVersion           = "0.0.2"
+		cliVersion           = version
 		defaultNamespace     = uuid.NamespaceDNS
 		defaultUUIDGenerator = uuid.NewV4
 
