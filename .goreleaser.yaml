@@ -32,6 +32,6 @@ checksum:
 brews:
   - repository:
       owner: legaard
-      name: homebrew-tools
+      name: homebrew-tap
     homepage: "https://github.com/legaard/uuidy"
     description: "A small CLI tool for working with UUIDs"
